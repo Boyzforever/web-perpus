@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import logo from '../components/logo.png'
-import { Layout, Menu } from 'antd';
+import {Button, Layout, Menu } from 'antd';
 import {
   DatabaseOutlined,
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined
 } from '@ant-design/icons';
+import ReactToPrint from 'react-to-print'; // Import ReactToPrint
+
 import '../styles/style.css'
+import {BukuAdmin} from '../pages/bukuAdmin';
+import Account from '../view/Account';
+import {Laporan} from '../pages/Laporan';
+import {PeminjamanAdmin} from '../view/peminjamanAdmin';
 const { Header, Sider, Content } = Layout;
 
  const HomePetugas = () => {
@@ -17,24 +26,30 @@ const { Header, Sider, Content } = Layout;
   const handleClick = (e) =>{
     setSelectedKeys (e.key);
   }
-
+  const handlelogout = () =>{
+    window.location.href='/login'
+  }
+const handlePrint = () =>{
+  window.print()
+}
   let contentComponent;
   switch (selectedKeys) {
     case '1':
       contentComponent = <div></div>
       break;
     case '2':
-      contentComponent = <div>Content for Option 2</div>;
+      contentComponent = <PeminjamanAdmin />;
       break;
-    case '3':
-      contentComponent = <div>Content for Option 3</div>;
-      break;
-      case '4':
-        contentComponent = <div>Content for Option 4</div>;
+      case '3':
+        contentComponent = <BukuAdmin />
+        break;
+        case '4':
+        contentComponent = <Laporan />
         break;
     default:
       contentComponent = <div>No Content</div>;
   }
+  let componentRef;
 
 
   return (
@@ -59,13 +74,50 @@ const { Header, Sider, Content } = Layout;
 
         </Menu.Item>
         <Menu.Item key='3' icon={<DatabaseOutlined />}>
-            Pengembalian 
-
+          Buku
         </Menu.Item>
+        <Menu.Item key='4' icon={<DatabaseOutlined />}>
+          generate laporan
+        </Menu.Item>
+        
       </Menu>
+     
     </Sider>
     <Layout className="site-layout">
-      <Header className="site-layout-background" style={{ padding: 0 }} onClick={toggle}>
+      <Header className="site-layout-background" style={{ padding: 0 }}>
+      {collapsed ? (
+            <MenuUnfoldOutlined
+              className="trigger"
+              onClick={toggle}
+              style={{ color: "#000"}}
+            />
+          ) : (
+            <MenuFoldOutlined
+              className="trigger"
+              onClick={toggle}
+              style={{ color: "#000" }}
+            />
+          )}
+      <Button
+            icon={<LogoutOutlined />}
+            onClick={handlelogout}
+            style={{ marginLeft: "800px" }}
+          >
+            Logout
+          </Button>
+          <ReactToPrint
+            trigger={() => (
+              <Button
+                icon={<LogoutOutlined />}
+                style={{ marginLeft: "8px" }}
+              >
+                Print
+              </Button>
+            )}
+            content={() => componentRef}
+          />
+          
+          
       </Header>
       <Content
         className="site-layout-background"
@@ -75,7 +127,9 @@ const { Header, Sider, Content } = Layout;
           minHeight: 280,
         }}
       >
-        {contentComponent}
+         <div ref={(ref) => (componentRef = ref)}>
+            {contentComponent}
+          </div>
       </Content>
     </Layout>
   </Layout>

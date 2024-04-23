@@ -40,16 +40,14 @@ const handlePrint = () =>{
     case '2':
       contentComponent = <PeminjamanAdmin />;
       break;
-    case '3':
-      contentComponent = <div>Content for Option 3</div>;
-      break;
-      case '4':
+
+      case '3':
         contentComponent = <BukuAdmin />
         break;
-        case '5':
+        case '4':
         contentComponent = <Account />
         break;
-        case '6':
+        case '5':
         contentComponent = <Laporan />
         break;
     default:
@@ -80,16 +78,12 @@ const handlePrint = () =>{
 
         </Menu.Item>
         <Menu.Item key='3' icon={<DatabaseOutlined />}>
-            Pengembalian 
-
-        </Menu.Item>
-        <Menu.Item key='4' icon={<DatabaseOutlined />}>
           Buku
         </Menu.Item>
-        <Menu.Item key='5' icon={<DatabaseOutlined />}>
+        <Menu.Item key='4' icon={<DatabaseOutlined />}>
           account
         </Menu.Item>
-        <Menu.Item key='6' icon={<DatabaseOutlined />}>
+        <Menu.Item key='5' icon={<DatabaseOutlined />}>
           generate laporan
         </Menu.Item>
         

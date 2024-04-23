@@ -4,15 +4,17 @@ import {
   Button,
   Modal,
   Image,
+  Space,
   Spin,
+  message,
 } from "antd";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import Book from "./Buku"; // Import komponen Buku
 
 const { Meta } = Card;
 
-const BookList = () => {
+const BookTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bukuList, setBukuList] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null); // Menyimpan data buku yang dipilih
@@ -43,11 +45,20 @@ const BookList = () => {
     <div className="container mt-4">
       <div className="row">
         {bukuList.map((buku) => (
-          <Book
-            key={buku.id}
-            buku={buku}
-            handleBookClick={handleBookClick}
-          />
+          <div key={buku.id} className="col-md-4 mb-4">
+            <Card
+              hoverable
+              cover={<Image height={200} alt="Book Cover" src={`http://127.0.0.1:8090/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`} />}
+              actions={[
+                <Button disabled={buku.status === 'kosong'} onClick={() => handleBookClick(buku)}>Detail</Button>,<span>status : {buku.status}</span>
+              ]}
+            >
+              <Meta
+                title={buku.judul}
+                description={`Penulis: ${buku.penulis}`}
+              />
+            </Card>
+          </div>
         ))}
       </div>
       {/* Modal untuk detail buku */}
@@ -75,4 +86,4 @@ const BookList = () => {
   );
 };
 
-export default BookList;
+export default BookTable;

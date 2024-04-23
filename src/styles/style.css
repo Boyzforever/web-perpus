@@ -25,4 +25,10 @@
     text-align: center;
   }
   
+  .login-background {
+    background-image: url('../images/backround.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
   

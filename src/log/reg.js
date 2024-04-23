@@ -52,6 +52,7 @@ export default function Reg() {
     },
     section: {
       alignItems: "center",
+      justifyContent: "center", // Membuat konten berada di tengah secara horizontal
       backgroundColor: token.colorBgContainer,
       display: "flex",
       height: screens.sm ? "100vh" : "auto",
@@ -62,103 +63,115 @@ export default function Reg() {
     },
     title: {
       fontSize: screens.md ? token.fontSizeHeading2 : token.fontSizeHeading3
+    },
+    rectangle: {
+      border: `1px solid ${token.colorBorder}`,
+      borderRadius: token.borderRadiusBase,
+      padding: token.paddingBase,
+      marginBottom: token.marginBase,
+      alignItems: "center", // Membuat konten berada di tengah secara vertikal
+      backdropFilter: "blur(5px)", // Efek blur
+      backgroundColor: "rgba(255, 255, 255, 0.5)" // Warna latar belakang semi-transparan
     }
   };
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <Title style={styles.title}>Sign up</Title>
-        </div>
-        <Form
-          name="registration-form"
-          onFinish={onFinish}
-          layout="vertical"
-          requiredMark="optional"
-        >
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                type: "email",
-                required: true,
-                message: "Please input your Email!"
-              }
-            ]}
+    <section className="login-background" style={styles.section}>
+      <div style={styles.rectangle}>
+        {/* Rectangle */}
+        <div style={styles.container}>
+          <div style={styles.header}>
+            <Title style={styles.title}>Sign up</Title>
+          </div>
+          <Form
+            name="registration-form"
+            onFinish={onFinish}
+            layout="vertical"
+            requiredMark="optional"
           >
-            <Input prefix={<MailOutlined />} placeholder="Email" />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!"
-              }
-            ]}
-          >
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item
-            name="passwordConfirm"
-            dependencies={['password']}
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                },
-              }),
-            ]}
-          >
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Confirm Password"
-            />
-          </Form.Item>
-          <Form.Item
-            name="userType"
-            rules={[
-              {
-                required: true,
-                message: "Please select your role!"
-              }
-            ]}
-          >
-            <Select
-              placeholder="Select your role"
-              onChange={handleRoleChange} // Menangani perubahan nilai dropdown
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  type: "email",
+                  required: true,
+                  message: "Please input your Email!"
+                }
+              ]}
             >
-              <Option value="peminjam">Peminjam</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="agree" valuePropName="checked" noStyle>
-              <Checkbox>I agree to the terms and conditions</Checkbox>
+              <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
-          </Form.Item>
-          <Form.Item style={{ marginBottom: "0px" }}>
-            <Button block type="primary" htmlType="submit">
-              Sign up
-            </Button>
-            <div style={{ marginTop: "12px", textAlign: "center" }}>
-              <Text style={styles.text}>Already have an account? </Text>
-              <a href="/login">Sign in</a>
-            </div>
-          </Form.Item>
-        </Form>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Password!"
+                }
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Item>
+            <Form.Item
+              name="passwordConfirm"
+              dependencies={['password']}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                  },
+                }),
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                type="password"
+                placeholder="Confirm Password"
+              />
+            </Form.Item>
+            <Form.Item
+              name="userType"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select your role!"
+                }
+              ]}
+            >
+              <Select
+                placeholder="Select your role"
+                onChange={handleRoleChange} // Menangani perubahan nilai dropdown
+              >
+                <Option value="peminjam">Peminjam</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <Form.Item name="agree" valuePropName="checked" noStyle>
+                <Checkbox>I agree to the terms and conditions</Checkbox>
+              </Form.Item>
+            </Form.Item>
+            <Form.Item style={{ marginBottom: "0px" }}>
+              <Button block type="primary" htmlType="submit">
+                Sign up
+              </Button>
+              <div style={{ marginTop: "12px", textAlign: "center" }}>
+                <Text style={styles.text}>Already have an account? </Text>
+                <a href="/login">Sign in</a>
+              </div>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     </section>
   );

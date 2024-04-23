@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Spin, Button, message } from "antd";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined } from "@ant-design/icons"; // Import DeleteOutlined
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import dayjs from "dayjs";
@@ -46,6 +46,17 @@ export const PeminjamanAdmin = () => {
 
   const handleReject = async (record) => {
     await updateStatus(record, "buku ditolak");
+  };
+
+  const handleDelete = async (record) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8090/api/collections/Peminjaman/records/${record.key}`);
+      message.success(`Peminjaman "${record.judul_buku}" berhasil dihapus.`);
+      fetchData();
+    } catch (error) {
+      console.error(error);
+      message.error(`Gagal menghapus peminjaman "${record.judul_buku}".`);
+    }
   };
 
   const updateStatus = async (record, status) => {
@@ -94,11 +105,14 @@ export const PeminjamanAdmin = () => {
       key: "action",
       render: (text, record) => (
         <>
-          <Button type="primary" onClick={() => handleAccept(record)}>
+          <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
             Terima Peminjaman
           </Button>
-          <Button type="danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }}>
+          <Button type="primary" className="btn-danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }} icon={<CloseCircleOutlined />}>
             Tolak Peminjaman
+          </Button>
+          <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
+            Hapus Peminjaman
           </Button>
         </>
       ),
@@ -107,9 +121,13 @@ export const PeminjamanAdmin = () => {
 
   return (
     <div className="container mt-4">
-      <Spin spinning={loading}>
-        <Table dataSource={dataSource} columns={columns} pagination={false} />
-      </Spin>
+      <div className="row">
+        <div className="col">
+          <Spin spinning={loading}>
+            <Table dataSource={dataSource} columns={columns} pagination={false} />
+          </Spin>
+        </div>
+      </div>
     </div>
   );
 };
