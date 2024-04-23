@@ -13,6 +13,7 @@ import '../styles/style.css'
 import {BukuAdmin} from '../pages/bukuAdmin';
 import Account from '../view/Account';
 import {Laporan} from '../pages/Laporan';
+import {PeminjamanAdmin} from '../view/peminjamanAdmin';
 const { Header, Sider, Content } = Layout;
 
  const HomeAdmin = () => {
@@ -37,7 +38,7 @@ const handlePrint = () =>{
       contentComponent = <div></div>
       break;
     case '2':
-      contentComponent = <div>Content for Option 2</div>;
+      contentComponent = <PeminjamanAdmin />;
       break;
     case '3':
       contentComponent = <div>Content for Option 3</div>;
