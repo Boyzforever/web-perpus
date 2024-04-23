@@ -21,7 +21,7 @@ export const PeminjamanAdmin = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://127.0.0.1:8090/api/collections/Peminjaman/records");
+      const response = await axios.get("https://perpustakaan.pockethost.io/api/collections/Peminjaman/records");
       const peminjamanData = response.data.items;
 
       const formattedData = peminjamanData.map((peminjaman, index) => ({
@@ -50,7 +50,7 @@ export const PeminjamanAdmin = () => {
 
   const handleDelete = async (record) => {
     try {
-      await axios.delete(`http://127.0.0.1:8090/api/collections/Peminjaman/records/${record.key}`);
+      await axios.delete(`https://perpustakaan.pockethost.io/api/collections/Peminjaman/records/${record.key}`);
       message.success(`Peminjaman "${record.judul_buku}" berhasil dihapus.`);
       fetchData();
     } catch (error) {
@@ -61,7 +61,7 @@ export const PeminjamanAdmin = () => {
 
   const updateStatus = async (record, status) => {
     try {
-      await axios.patch(`http://127.0.0.1:8090/api/collections/Peminjaman/records/${record.key}`, { status_peminjam: status });
+      await axios.patch(`https://perpustakaan.pockethost.io/api/collections/Peminjaman/records/${record.key}`, { status_peminjam: status });
       message.success(`Peminjaman "${record.judul_buku}" berhasil ${status === "buku dipinjam" ? "buku dipinjam" : "buku ditolak"}.`);
       fetchData(); 
     } catch (error) {

@@ -15,7 +15,7 @@ export default function Reg() {
 
   const createUser = async (userData) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8090/api/collections/users/records',userData,{
+      const response = await axios.post('https://perpustakaan.pockethost.io/api/collections/users/records',userData,{
         headers :{
           "Content-Type" : "application/json"
       }

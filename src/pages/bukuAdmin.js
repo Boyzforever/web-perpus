@@ -34,7 +34,7 @@ export const BukuAdmin = () => {
 
   const getBuku = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8090/api/collections/Buku/records');
+      const response = await axios.get('https://perpustakaan.pockethost.io/api/collections/Buku/records');
       setDataSource(response.data.items);
     } catch (error) {
       console.error(error);
@@ -47,7 +47,7 @@ export const BukuAdmin = () => {
 
   const editBuku = async (values, id) => {
     try {
-      await axios.patch(`http://127.0.0.1:8090/api/collections/Buku/records/${id}`, values, {
+      await axios.patch(`https://perpustakaan.pockethost.io/api/collections/Buku/records/${id}`, values, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -61,7 +61,7 @@ export const BukuAdmin = () => {
 
   const deleteBuku = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:8090/api/collections/Buku/records/${id}`);
+      await axios.delete(`https://perpustakaan.pockethost.io/api/collections/Buku/records/${id}`);
     } catch (e) {
       console.error(e);
     } finally {
@@ -96,7 +96,7 @@ export const BukuAdmin = () => {
       title: 'Foto',
       key: 'Foto',
       render: (record) => {
-        const fotoUrl = `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record.Foto}`;
+        const fotoUrl = `https://perpustakaan.pockethost.io/api/files/${record.collectionId}/${record.id}/${record.Foto}`;
         return <Image src={fotoUrl} alt="Book Cover" style={{ width: '200px', height: 'auto' }} />;
       },
     },
@@ -138,7 +138,7 @@ export const BukuAdmin = () => {
     formData.append("status", values.status); // Tambahkan status ketersediaan ke formData
 
     try {
-      await axios.post('http://127.0.0.1:8090/api/collections/Buku/records', formData, {
+      await axios.post('https://perpustakaan.pockethost.io/api/collections/Buku/records', formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }

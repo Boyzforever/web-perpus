@@ -23,7 +23,7 @@ const BookTable = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8090/api/collections/Buku/records"
+          "https://perpustakaan.pockethost.io/api/collections/Buku/records"
         );
         const bukuData = response.data.items;
         setBukuList(bukuData);
@@ -48,7 +48,7 @@ const BookTable = () => {
           <div key={buku.id} className="col-md-4 mb-4">
             <Card
               hoverable
-              cover={<Image height={200} alt="Book Cover" src={`http://127.0.0.1:8090/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`} />}
+              cover={<Image height={200} alt="Book Cover" src={`https://perpustakaan.pockethost.io/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`} />}
               actions={[
                 <Button disabled={buku.status === 'kosong'} onClick={() => handleBookClick(buku)}>Detail</Button>,<span>status : {buku.status}</span>
               ]}
@@ -77,7 +77,7 @@ const BookTable = () => {
             <p>Status: {selectedBook.status}</p>
             <Image
               alt="Book Cover"
-              src={`http://127.0.0.1:8090/api/files/${selectedBook.collectionId}/${selectedBook.id}/${selectedBook.Foto}`}
+              src={`https://perpustakaan.pockethost.io/api/files/${selectedBook.collectionId}/${selectedBook.id}/${selectedBook.Foto}`}
             />
           </div>
         )}

@@ -34,7 +34,7 @@ const EditBookForm = ({
     
     try {
       await axios.patch(
-        `http://127.0.0.1:8090/api/collections/Buku/records/${initialData.id}`,
+        `https://perpustakaan.pockethost.io/api/collections/Buku/records/${initialData.id}`,
         formData,
         {
           headers: {

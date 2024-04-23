@@ -30,7 +30,7 @@ export const Laporan = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8090/api/collections/Buku/records"
+          "https://perpustakaan.pockethost.io/api/collections/Buku/records"
         );
         const bukuData = response.data.items;
         const formattedData = bukuData.map((buku, index) => ({
@@ -41,7 +41,7 @@ export const Laporan = () => {
           penerbit: buku.penerbit,
           tahun_terbit: buku.tahun_terbit,
           status: buku.status === "ada" ? "Tersedia" : "Kosong",
-          Foto: `http://127.0.0.1:8090/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`, // Membangun URL foto
+          Foto: `https://perpustakaan.pockethost.io/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`, // Membangun URL foto
         }));
         setDataSource(formattedData);
       } catch (error) {
@@ -113,7 +113,7 @@ export const Laporan = () => {
   const getBuku = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8090/api/collections/Buku/records"
+        "https://perpustakaan.pockethost.io/api/collections/Buku/records"
       );
       setBukuList(response.data.items);
     } catch (error) {
