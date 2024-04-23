@@ -1,0 +1,28 @@
+.trigger {
+    font-size: 18px;
+    color: white;
+    /* line-height: 64px; */
+    /* padding: 0 24px; */
+    cursor: pointer;
+    transition: color 0.3s;
+    
+  }
+  
+  .trigger:hover {
+    color: #1890ff;
+  }
+  .ant-layout-header {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-container {
+    width: 300px;
+    margin: 100px auto;
+  }
+  
+  .login-container h1 {
+    text-align: center;
+  }
+  
+  
