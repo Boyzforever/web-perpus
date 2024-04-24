@@ -16,7 +16,8 @@ const HomePage = () => {
   }, []);
 
   const user = localStorage.getItem('userType');
-  const parsedUser = JSON.parse(user)
+  try{
+    const parsedUser = JSON.parse(user)
   const userType = parsedUser.userType
   console.log(userType)
   if (userType === 'administrator') {
@@ -33,6 +34,9 @@ const HomePage = () => {
         <p>Silakan hubungi administrator.</p>
       </div>
     );
+  }
+  }catch(e){
+    window.location.href = "/login"
   }
 };
 
