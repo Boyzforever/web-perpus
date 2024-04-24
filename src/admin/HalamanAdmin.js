@@ -14,6 +14,7 @@ import {BukuAdmin} from '../pages/bukuAdmin';
 import Account from '../view/Account';
 import {Laporan} from '../pages/Laporan';
 import {PeminjamanAdmin} from '../view/peminjamanAdmin';
+import Dashboard from '../pages/Dashboard';
 const { Header, Sider, Content } = Layout;
 
  const HomeAdmin = () => {
@@ -35,7 +36,7 @@ const handlePrint = () =>{
   let contentComponent;
   switch (selectedKeys) {
     case '1':
-      contentComponent = <div></div>
+      contentComponent = <Dashboard />
       break;
     case '2':
       contentComponent = <PeminjamanAdmin />;

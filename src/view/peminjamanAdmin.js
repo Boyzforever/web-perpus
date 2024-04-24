@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Spin, Button, message } from "antd";
+import { Table, Spin, Button, message, Popover, Tooltip } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined } from "@ant-design/icons"; // Import DeleteOutlined
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
@@ -105,12 +105,17 @@ export const PeminjamanAdmin = () => {
       key: "action",
       render: (text, record) => (
         <>
+
+          <Tooltip title='pinjam buku'>
           <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
-            Terima Peminjaman
-          </Button>
+            
+            </Button>
+          </Tooltip>
+          <Tooltip title='tolak buku'>
           <Button type="primary" className="btn-danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }} icon={<CloseCircleOutlined />}>
-            Tolak Peminjaman
           </Button>
+          </Tooltip>
+          
           <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
             Hapus Peminjaman
           </Button>
