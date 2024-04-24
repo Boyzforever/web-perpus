@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Space, Button, Image, Form, Input, Select, message } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import EditBookForm from './editBuku';
 
 export const BukuAdmin = () => {
@@ -91,12 +92,13 @@ export const BukuAdmin = () => {
       title: 'Tahun Terbit',
       dataIndex: 'tahun_terbit',
       key: 'tahun_terbit',
+      className: 'd-none d-md-table-cell', // Hide on smaller screens
     },
     {
       title: 'Foto',
       key: 'Foto',
       render: (record) => {
-        const fotoUrl = `https://perpustakaan.pockethost.io/api/files/${record.collectionId}/${record.id}/${record.Foto}`;
+        const fotoUrl =  `https://perpustakaan.pockethost.io/api/files/${record.collectionId}/${record.id}/${record.Foto}`;
         return <Image src={fotoUrl} alt="Book Cover" style={{ width: '200px', height: 'auto' }} />;
       },
     },
@@ -116,6 +118,7 @@ export const BukuAdmin = () => {
           </span>
         </div>
       ),
+      className: 'd-none d-md-table-cell', // Hide on smaller screens
     },
     {
       title: 'Aksi',
@@ -153,18 +156,26 @@ export const BukuAdmin = () => {
   };
 
   return (
-    <div>
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        pagination={false}
-      />
-      <Form
-        name="basic"
-        layout='vertical'
-        onFinish={onFinish}
-      >
-        <Form.Item
+    <div className="container mt-4">
+      <div className="row">
+        <div className="col">
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            pagination={false}
+            className="table-responsive" // Make the table responsive
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <Form
+            name="basic"
+            layout='vertical'
+            onFinish={onFinish}
+          >
+            {/* Form items */}
+            <Form.Item
           label="Judul Buku"
           name="judul"
           rules={[{ required: true, message: 'Please input your name!' }]}
@@ -221,7 +232,10 @@ export const BukuAdmin = () => {
             Submit
           </Button>
         </Form.Item>
-      </Form>
+
+          </Form>
+        </div>
+      </div>
       <EditBookForm
         visible={editModalVisible}
         onCancel={handleEditCancel}

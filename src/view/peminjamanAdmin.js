@@ -105,20 +105,34 @@ export const PeminjamanAdmin = () => {
       key: "action",
       render: (text, record) => (
         <>
-
-          <Tooltip title='pinjam buku'>
-          <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
-            
+          <div className="d-md-none mb-2"> {/* Hide the div on medium screens and smaller */}
+            <Tooltip title='pinjam buku'>
+              <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
+              </Button>
+            </Tooltip>
+            <Tooltip title='tolak buku'>
+              <Button type="primary" className="btn-danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }} icon={<CloseCircleOutlined />}>
+              </Button>
+            </Tooltip>
+          </div>
+          <div className="d-md-none mb-2"> {/* Hide the div on medium screens and smaller */}
+            <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
+              Hapus Peminjaman
             </Button>
-          </Tooltip>
-          <Tooltip title='tolak buku'>
-          <Button type="primary" className="btn-danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }} icon={<CloseCircleOutlined />}>
-          </Button>
-          </Tooltip>
-          
-          <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
-            Hapus Peminjaman
-          </Button>
+          </div>
+          <div className="d-none d-md-table-cell"> {/* Hide the div on small screens and show it on medium screens and larger */}
+            <Tooltip title='pinjam buku'>
+              <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
+              </Button>
+            </Tooltip>
+            <Tooltip title='tolak buku'>
+              <Button type="primary" className="btn-danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }} icon={<CloseCircleOutlined />}>
+              </Button>
+            </Tooltip>
+            <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
+              Hapus Peminjaman
+            </Button>
+          </div>
         </>
       ),
     },
@@ -129,7 +143,9 @@ export const PeminjamanAdmin = () => {
       <div className="row">
         <div className="col">
           <Spin spinning={loading}>
-            <Table dataSource={dataSource} columns={columns} pagination={false} />
+            <div className="table-responsive"> {/* Make the table responsive */}
+              <Table dataSource={dataSource} columns={columns} pagination={false} />
+            </div>
           </Spin>
         </div>
       </div>

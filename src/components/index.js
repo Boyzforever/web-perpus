@@ -11,6 +11,8 @@ import {
 import "../styles/style.css";
 import Peminjam from "../pages/Peminjaman";
 import BookTable from "../view/Buku";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+
 const { Header, Sider, Content } = Layout;
 
 export const Index = () => {
@@ -64,36 +66,37 @@ export const Index = () => {
           <Menu.Item key="1" icon={<BookOutlined />}>
             Buku
           </Menu.Item>
-          {/* <Menu.Item key="4" icon={<SaveOutlined />}>
-          Koleksi Buku
-        </Menu.Item> */}
           <Menu.Item key="2" icon={<ClockCircleOutlined />}>
             Peminjaman
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {collapsed ? (
-            <MenuUnfoldOutlined
-              className="trigger"
-              onClick={toggle}
-              style={{ color: "#000", marginRight: "80px" }}
-            />
-          ) : (
-            <MenuFoldOutlined
-              className="trigger"
-              onClick={toggle}
-              style={{ color: "#000" }}
-            />
-          )}
-          <Button
-            icon={<LogoutOutlined />}
-            onClick={handlelogout}
-            style={{ marginLeft: "800px" }}
-          >
-            Logout
-          </Button>
+        <Header className="site-layout-background d-flex justify-content-between align-items-center" style={{ padding: 0 }}>
+          <div>
+            {collapsed ? (
+              <MenuUnfoldOutlined
+                className="trigger"
+                onClick={toggle}
+                style={{ color: "#000", marginRight: "80px" }}
+              />
+            ) : (
+              <MenuFoldOutlined
+                className="trigger"
+                onClick={toggle}
+                style={{ color: "#000" }}
+              />
+            )}
+          </div>
+          <div>
+            <Button
+              icon={<LogoutOutlined />}
+              onClick={handlelogout}
+              className="mr-4"
+            >
+              Logout
+            </Button>
+          </div>
         </Header>
         <Content
           className="site-layout-background"

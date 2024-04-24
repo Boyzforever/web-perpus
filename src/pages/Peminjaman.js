@@ -47,7 +47,7 @@ const BorrowBookForm = () => {
         name="judul_buku"
         rules={[{ required: true, message: "Please select a book title!" }]}
       >
-        <Select>
+        <Select style={{ width: '100%' }}>
           {bukuList.map((buku) => buku.status !=="kosong" &&(
             <Option key={buku.id} value={buku.judul}>
               {buku.judul}
@@ -73,7 +73,7 @@ const BorrowBookForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
+        <Button type="primary" htmlType="submit" loading={loading} block>
           Pinjam Buku
         </Button>
       </Form.Item>

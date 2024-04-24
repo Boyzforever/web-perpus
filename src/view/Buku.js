@@ -4,11 +4,8 @@ import {
   Button,
   Modal,
   Image,
-  Space,
   Spin,
-  message,
 } from "antd";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 
@@ -17,7 +14,7 @@ const { Meta } = Card;
 const BookTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bukuList, setBukuList] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null); // Menyimpan data buku yang dipilih
+  const [selectedBook, setSelectedBook] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +26,6 @@ const BookTable = () => {
         setBukuList(bukuData);
       } catch (error) {
         console.error(error);
-        // Handle error jika terjadi kesalahan dalam mengambil data buku
       }
     };
 
@@ -43,25 +39,25 @@ const BookTable = () => {
 
   return (
     <div className="container mt-4">
-      <div className="row">
+      <div className="row row-cols-1 row-cols-md-3 g-4">
         {bukuList.map((buku) => (
-          <div key={buku.id} className="col-md-4 mb-4">
+          <div key={buku.id} className="col">
             <Card
               hoverable
-              cover={<Image height={200} alt="Book Cover" src={`https://perpustakaan.pockethost.io/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`} />}
-              actions={[
-                <Button disabled={buku.status === 'kosong'} onClick={() => handleBookClick(buku)}>Detail</Button>,<span>status : {buku.status}</span>
-              ]}
+              cover={<Image alt="Book Cover" src={`https://perpustakaan.pockethost.io/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`} />}
             >
               <Meta
                 title={buku.judul}
                 description={`Penulis: ${buku.penulis}`}
               />
+              <div className="d-flex justify-content-between mt-2">
+                <Button disabled={buku.status === 'kosong'} onClick={() => handleBookClick(buku)}>Detail</Button>
+                <span>Status: {buku.status}</span>
+              </div>
             </Card>
           </div>
         ))}
       </div>
-      {/* Modal untuk detail buku */}
       <Modal
         title="Detail Buku"
         visible={isModalVisible}

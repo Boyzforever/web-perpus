@@ -9,24 +9,31 @@ export default function Dashboard() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-3 mb-3"> {/* Added margin bottom class */}
+        <div className="col-md-6 col-lg-3 mb-3"> {/* Use col-md-6 for medium screens and col-lg-3 for large screens, added margin bottom class */}
           <Card className='bg-primary'>
             <Meta
-              avatar={<FontAwesomeIcon icon={faBook} style={{ fontSize: '54px' }} />}
-              title="Buku"
-              description={<div style={{ fontSize: '24px', marginTop: '10px' }}>10</div>}
+              avatar={<FontAwesomeIcon icon={faBook} style={{ fontSize: '10vw' }} />} 
+              description={
+                <div>
+                  <div style={{ fontSize: '24px', marginTop: '10px' }}>10</div>
+                  <div style={{ fontSize: '16px', marginTop: '10px' }}>Buku</div> {/* Text "Buku" */}
+                </div>
+              }
             />
           </Card>
         </div>
-        <div className="col-md-3 mb-3"> {/* Added margin bottom class */}
-          <Card className='bg-danger'>
+        <div className="col-md-6 col-lg-3 mb-3"> {/* Use col-md-6 for medium screens and col-lg-3 for large screens, added margin bottom class */}
+        <Card className='bg-danger'>
             <Meta
-              avatar={<FontAwesomeIcon icon={faBook} style={{ fontSize: '50px' }} />}
-              title=" Peminjam"
-              description={<div style={{ fontSize: '24px', marginTop: '10px' }}>5</div>}
+              avatar={<FontAwesomeIcon icon={faBook} style={{ fontSize: '10vw' }} />} 
+              description={
+                <div>
+                  <div style={{ fontSize: '24px', marginTop: '10px' }}>10</div>
+                  <div style={{ fontSize: '16px', marginTop: '10px' }}>Peminjam</div> {/* Text "Buku" */}
+                </div>
+              }
             />
-          </Card>
-        </div>
+          </Card>        </div>
       </div>
     </div>
   );
