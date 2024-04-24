@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Login from '../log/login';
 import HomeAdmin from '../admin/HalamanAdmin';
 import Reg from '../log/reg';
