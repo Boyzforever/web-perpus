@@ -21,6 +21,7 @@ export const Laporan = () => {
           penulis: buku.penulis,
           penerbit: buku.penerbit,
           tahun_terbit: buku.tahun_terbit,
+          stok:buku.stok,
           status: buku.status === "ada" ? "Tersedia" : "Kosong",
           Foto: `https://perpustakaan.pockethost.io/api/files/${buku.collectionId}/${buku.id}/${buku.Foto}`,
         }));
@@ -75,24 +76,29 @@ export const Laporan = () => {
       ),
     },
     {
+      title: "Stok Barang",
+      dataIndex: "stok",
+      key: "stok",
+    },
+    {
       title: "Foto",
       key: "Foto",
       render: (record) => (
         <Image src={record.Foto} alt="Book Cover" preview={false} />
       ),
     },
+ 
   ];
 
   return (
-    <div className="container mt-4">
-      <div className="table-responsive">
+    <div className="container mt-4 d-flex">
         <Table
+        className="table-responsive"
           dataSource={dataSource}
           columns={columns}
           pagination={false}
           bordered
         />
-      </div>
     </div>
   );
 };

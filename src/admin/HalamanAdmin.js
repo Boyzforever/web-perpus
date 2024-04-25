@@ -5,7 +5,7 @@ import {
   DatabaseOutlined,
   LogoutOutlined,
   MenuFoldOutlined,
-  MenuUnfoldOutlined
+  MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import ReactToPrint from 'react-to-print'; // Import ReactToPrint
 
@@ -18,6 +18,7 @@ import Dashboard from '../pages/Dashboard';
 
 // Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
+import StokTable from '../view/StokTable';
 
 const { Header, Sider, Content } = Layout;
 
@@ -37,9 +38,6 @@ const HomeAdmin = () => {
     window.location.href = '/login';
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
 
   let contentComponent;
   switch (selectedKeys) {
@@ -57,6 +55,9 @@ const HomeAdmin = () => {
       break;
     case '5':
       contentComponent = <Laporan />;
+      break;
+    case '6':
+      contentComponent = <StokTable />;
       break;
     default:
       contentComponent = <div>No Content</div>;
@@ -92,6 +93,9 @@ const HomeAdmin = () => {
           </Menu.Item>
           <Menu.Item key='5' icon={<DatabaseOutlined />}>
             Generate Laporan
+          </Menu.Item>
+          <Menu.Item key='6' icon={<DatabaseOutlined />}>
+            Stok Tabel
           </Menu.Item>
         </Menu>
       </Sider>

@@ -4,13 +4,13 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import axios from 'axios';
 
 const { useToken } = theme;
-const { useBreakpoint } = Grid;
+// const { useBreakpoint } = Grid;
 const { Text, Title } = Typography;
 const { Option } = Select;
 
 export default function Reg() {
   const { token } = useToken();
-  const screens = useBreakpoint();
+  // const screens = useBreakpoint();
   const [selectedRole, setSelectedRole] = useState(null); // State untuk menyimpan opsi yang dipilih
 
   const createUser = async (userData) => {

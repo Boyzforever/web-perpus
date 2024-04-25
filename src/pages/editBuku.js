@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Input, message, Select } from "antd";
+import React, { useState,useEffect } from "react";
+import { Modal, Button, Form, Input, message, Select,Menu } from "antd";
 import axios from "axios";
 import { Option } from "antd/es/mentions";
 
@@ -13,16 +13,18 @@ const EditBookForm = ({
   const [form] = Form.useForm();
   const [formData, setFormData] = useState(initialData);
   const [gambar, setGambar] = useState();
-
+  const [stok, setStok] = useState([]);
+  const [loading,setLoading] = useState();
   const handleSave = async () => {
     const formValues = form.getFieldsValue();
     const formData = new FormData();
-  
+    const selectedStock = formValues.stok;
+
     formData.append("judul", formValues.judul || initialData.judul);
     formData.append("penulis", formValues.penulis || initialData.penulis);
     formData.append("penerbit", formValues.penerbit || initialData.penerbit);
     formData.append("status", formValues.status || initialData.status);
-
+    formData.append("stok", selectedStock);
     formData.append(
       "tahun_terbit",
       formValues.tahun_terbit || initialData.tahun_terbit
@@ -50,6 +52,24 @@ const EditBookForm = ({
       message.error("Gagal mengubah buku");
     }
   };
+  useEffect(() => {
+    const getStok = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://perpustakaan.pockethost.io/api/collections/stokbarang/records"
+        );
+        setStok(response.data.items);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    getStok();
+  }, []);
+
   
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -146,6 +166,23 @@ const EditBookForm = ({
     <Option value="kosong">Kosong</Option>
   </Select>
 </Form.Item>
+<Form.Item
+              label="Stok Barang"
+              name="stok"
+              rules={[{ required: true, message: "Please select a Stok!" }]}
+            >
+              <Select loading={loading}>
+                {stok.map(
+                  (stok) =>
+                    stok.status !== "kosong" && (
+                      <Option key={stok.id} value={stok.stok}>
+                        {stok.stok}
+                      </Option>
+                    )
+                )}
+              </Select>
+            </Form.Item>
+
 
       </Form>
     </Modal>

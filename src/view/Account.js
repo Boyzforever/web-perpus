@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Typography } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import axios from 'axios';
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
 const { Option } = Select;
 
 export default function Account() {
@@ -37,7 +37,7 @@ export default function Account() {
   };
 
   return (
-    <section className="container-fluid">
+    <section className="container-fluid ">
       <div className="row justify-content-center">
         <div className="col-md-6 col-lg-4">
           <div className="text-center mb-4">

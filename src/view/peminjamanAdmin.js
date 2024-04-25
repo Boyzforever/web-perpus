@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Spin, Button, message, Popover, Tooltip } from "antd";
+import { Table, Spin, Button, message, Tooltip } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined } from "@ant-design/icons"; // Import DeleteOutlined
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
@@ -104,7 +104,7 @@ export const PeminjamanAdmin = () => {
       title: "Tindakan",
       key: "action",
       render: (text, record) => (
-        <>
+        <div className="d-flex">
           <div className="d-md-none mb-2"> {/* Hide the div on medium screens and smaller */}
             <Tooltip title='pinjam buku'>
               <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
@@ -133,7 +133,7 @@ export const PeminjamanAdmin = () => {
               Hapus Peminjaman
             </Button>
           </div>
-        </>
+        </div>
       ),
     },
   ];

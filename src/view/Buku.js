@@ -4,7 +4,7 @@ import {
   Button,
   Modal,
   Image,
-  Spin,
+  List,
 } from "antd";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
@@ -14,7 +14,8 @@ const { Meta } = Card;
 const BookTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bukuList, setBukuList] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null); 
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [stokList, setStokList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,13 +33,22 @@ const BookTable = () => {
     fetchData();
   }, []);
 
-  const handleBookClick = (book) => {
+  const handleBookClick = async (book) => {
     setSelectedBook(book);
     setIsModalVisible(true);
+    try {
+      const response = await axios.get(
+        `https://perpustakaan.pockethost.io/api/collections/stokbarang/records?filter[stok]=${book.stok}`
+      );
+      const stokData = response.data.items;
+      setStokList(stokData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 d-flex">
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {bukuList.map((buku) => (
           <div key={buku.id} className="col">
@@ -74,6 +84,12 @@ const BookTable = () => {
             <Image
               alt="Book Cover"
               src={`https://perpustakaan.pockethost.io/api/files/${selectedBook.collectionId}/${selectedBook.id}/${selectedBook.Foto}`}
+            />
+            <p>Stok:</p>
+            <List
+              bordered
+              dataSource={stokList}
+              renderItem={(item) => <List.Item>{item.stok}</List.Item>}
             />
           </div>
         )}

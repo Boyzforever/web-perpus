@@ -6,7 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import EditBookForm from './editBuku';
 
 export const BukuAdmin = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [, setIsModalVisible] = useState(false);
+  const[stok,setStok] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [dataSource, setDataSource] = useState([]);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedData, setEditedData] = useState({});
@@ -32,10 +35,34 @@ export const BukuAdmin = () => {
     setEditModalVisible(false);
     editBuku(updatedData, id);
   };
+  useEffect(() => {
+    const getStok = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://perpustakaan.pockethost.io/api/collections/stokbarang/records"
+        );
+        setStok(response.data.items);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
 
+    getStok();
+  }, []);
   const getBuku = async () => {
     try {
       const response = await axios.get('https://perpustakaan.pockethost.io/api/collections/Buku/records');
+      setDataSource(response.data.items);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getStok = async () => {
+    try {
+      const response = await axios.get('https://perpustakaan.pockethost.io/api/collections/stokbarang/records');
       setDataSource(response.data.items);
     } catch (error) {
       console.error(error);
@@ -121,6 +148,11 @@ export const BukuAdmin = () => {
       className: 'd-none d-md-table-cell', // Hide on smaller screens
     },
     {
+      title: 'Stok Buku',
+      dataIndex: 'stok',
+      key: 'stok',
+    },
+    {
       title: 'Aksi',
       render: (record) => (
         <Space>
@@ -138,7 +170,9 @@ export const BukuAdmin = () => {
     formData.append("penerbit", values.penerbit);
     formData.append("penulis", values.penulis);
     formData.append("Foto", gambar);
-    formData.append("status", values.status); // Tambahkan status ketersediaan ke formData
+    formData.append("status", values.status);
+    formData.append("stok", values.stok);
+
 
     try {
       await axios.post('https://perpustakaan.pockethost.io/api/collections/Buku/records', formData, {
@@ -226,6 +260,22 @@ export const BukuAdmin = () => {
             onChange={handleFileChange}
           />
         </Form.Item>
+        <Form.Item
+              label="Stok Buku"
+              name="stok"
+              rules={[{ required: true, message: "Please select a book!" }]}
+            >
+              <Select loading={loading}>
+                {stok.map(
+                  (stok) =>
+                    stok.status !== "kosong" && (
+                      <Option key={stok.id} value={stok.stok}>
+                        {stok.stok}
+                      </Option>
+                    )
+                )}
+              </Select>
+            </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
@@ -242,6 +292,7 @@ export const BukuAdmin = () => {
         onSave={handleEditSave}
         initialData={editedData}
         getBuku={getBuku}
+        getStok={getStok}
         setIsModalVisible={setEditModalVisible}
       />
     </div>
