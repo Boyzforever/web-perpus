@@ -61,9 +61,9 @@ export const PeminjamanAdmin = () => {
 
   const updateStatus = async (record, status) => {
     try {
-      const r = await axios.get(`https://perpustakaan.pockethost.io/api/collections/stokbarang/records/50ulj93hekj3yzn`)
+      const r = await axios.get(`https://perpustakaan.pockethost.io/api/collections/stokbarang/records/i9kxjac85opjkxk`)
       const s = r.data.stok
-      const responsstok = await axios.patch(`https://perpustakaan.pockethost.io/api/collections/stokbarang/records/50ulj93hekj3yzn`, {stok:s - 1})
+      const responsstok = await axios.patch(`https://perpustakaan.pockethost.io/api/collections/stokbarang/records/i9kxjac85opjkxk`, {stok: (status === "buku dipinjam" ? s-1 : s )})
       console.log('respons' , responsstok)
       await axios.patch(`https://perpustakaan.pockethost.io/api/collections/Peminjaman/records/${record.key}`, { status_peminjam: status });
       message.success(`Peminjaman "${record.judul_buku}" berhasil ${status === "buku dipinjam" ? "buku dipinjam" : "buku ditolak"}.`);
