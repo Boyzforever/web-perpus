@@ -11,7 +11,7 @@ import {
 import "../styles/style.css";
 import Peminjam from "../pages/Peminjaman";
 import BookTable from "../view/Buku";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const { Header, Sider, Content } = Layout;
 

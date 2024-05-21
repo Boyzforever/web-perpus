@@ -25,7 +25,7 @@ const BookTable = () => {
         );
         const bukuData = response.data.items;
         setBukuList(bukuData);
-      } catch (error) {
+      } catch (error) {        
         console.error(error);
       }
     };

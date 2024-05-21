@@ -27,7 +27,7 @@ export const PeminjamanAdmin = () => {
       const formattedData = peminjamanData.map((peminjaman, index) => ({
         key: peminjaman.id,
         nomor_urut: index + 1,
-        judul_buku: peminjaman.judul_buku, 
+        judul_buku: peminjaman.judul_buku,
         tanggal_peminjaman: dayjs(peminjaman.tanggal_peminjaman).format(dateFormat),
         tanggal_pengembalian: dayjs(peminjaman.tanggal_pengembalian).format(dateFormat),
         status_peminjam: getStatusIcon(peminjaman.status_peminjam),
@@ -56,6 +56,18 @@ export const PeminjamanAdmin = () => {
     } catch (error) {
       console.error(error);
       message.error(`Gagal menghapus peminjaman "${record.judul_buku}".`);
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    try {
+      // Menghapus semua data secara berurutan
+      await Promise.all(dataSource.map(record => axios.delete(`https://perpustakaan.pockethost.io/api/collections/Peminjaman/records/${record.key}`)));
+      message.success(`Semua peminjaman berhasil dihapus.`);
+      fetchData();
+    } catch (error) {
+      console.error(error);
+      message.error(`Gagal menghapus semua peminjaman.`);
     }
   };
 
@@ -109,7 +121,7 @@ export const PeminjamanAdmin = () => {
       key: "action",
       render: (text, record) => (
         <div className="d-flex">
-          <div className="d-md-none mb-2"> {/* Hide the div on medium screens and smaller */}
+          <div className="d-md-none mb-2">
             <Tooltip title='pinjam buku'>
               <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
               </Button>
@@ -119,12 +131,12 @@ export const PeminjamanAdmin = () => {
               </Button>
             </Tooltip>
           </div>
-          <div className="d-md-none mb-2"> {/* Hide the div on medium screens and smaller */}
+          <div className="d-md-none mb-2">
             <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
               Hapus Peminjaman
             </Button>
           </div>
-          <div className="d-none d-md-table-cell"> {/* Hide the div on small screens and show it on medium screens and larger */}
+          <div className="d-none d-md-table-cell">
             <Tooltip title='pinjam buku'>
               <Button type="primary" onClick={() => handleAccept(record)} icon={<CheckCircleOutlined />}>
               </Button>
@@ -133,17 +145,21 @@ export const PeminjamanAdmin = () => {
               <Button type="primary" className="btn-danger" onClick={() => handleReject(record)} style={{ marginLeft: '8px' }} icon={<CloseCircleOutlined />}>
               </Button>
             </Tooltip>
+            <Tooltip title="Hapus Peminjaman">
             <Button type="primary" onClick={() => handleDelete(record)} className="btn-danger" icon={<DeleteOutlined />} style={{ marginLeft: '8px' }}>
-              Hapus Peminjaman
             </Button>
+            </Tooltip>
           </div>
         </div>
       ),
     },
+  
   ];
 
   return (
     <div className="container mt-4">
+      <div className="row mb-2">
+      </div>
       <div className="row">
         <div className="col">
           <Spin spinning={loading}>
@@ -153,6 +169,11 @@ export const PeminjamanAdmin = () => {
           </Spin>
         </div>
       </div>
+      <div className="col d-flex">
+          <Button style={{ marginLeft : "86%"}} type="primary" onClick={handleDeleteAll} className="btn-danger" icon={<DeleteOutlined />}>
+            Hapus Semua
+          </Button>
+        </div>
     </div>
   );
 };

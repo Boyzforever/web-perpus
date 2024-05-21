@@ -6,6 +6,11 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  BarChartOutlined,
+  BookOutlined,
+  AccountBookOutlined,
+  WarningFilled,
+  TabletFilled
 } from '@ant-design/icons';
 import ReactToPrint from 'react-to-print'; // Import ReactToPrint
 
@@ -82,19 +87,19 @@ const HomeAdmin = () => {
           <Menu.Item key="1" icon={<DatabaseOutlined />}>
             Dashboard
           </Menu.Item>
-          <Menu.Item key='2' icon={<DatabaseOutlined />}>
+          <Menu.Item key='2' icon={<BarChartOutlined />}>
             Peminjaman
           </Menu.Item>
-          <Menu.Item key='3' icon={<DatabaseOutlined />}>
+          <Menu.Item key='3' icon={<BookOutlined />}>
             Buku
           </Menu.Item>
-          <Menu.Item key='4' icon={<DatabaseOutlined />}>
+          <Menu.Item key='4' icon={<AccountBookOutlined />}>
             Account
           </Menu.Item>
-          <Menu.Item key='5' icon={<DatabaseOutlined />}>
+          <Menu.Item key='5' icon={<WarningFilled />}>
             Generate Laporan
           </Menu.Item>
-          <Menu.Item key='6' icon={<DatabaseOutlined />}>
+          <Menu.Item key='6' icon={<TabletFilled />}>
             Stok Tabel
           </Menu.Item>
         </Menu>
